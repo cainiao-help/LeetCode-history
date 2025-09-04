@@ -45,7 +45,8 @@ public class hot {
             return res;
         }
         int right = helper(nums,  target + 1) - 1;
-
+        res[0] = left;
+        res[1] = right;
         return res;
     }
     //    函数返回最小的满足 nums[i] >= target 的下标 i

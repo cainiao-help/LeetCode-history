@@ -41,7 +41,7 @@
                 nums[i] = temp;
             }
         }
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {              // 第二次遍历数组只需要比较当前位置的值是否和res值相同，若相同则加一。最后返回res
             if (res == nums[i]){
                 res++;
             }

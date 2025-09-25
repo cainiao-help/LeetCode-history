@@ -20,7 +20,8 @@
 -1000 <= Node.val <= 1000
 */
 
-// 该题首先要明确计算方法，将大问题变成多个子问题进行问题分解，找到最大路径的和即为找到当前节点左子树的最大路径和和右子树的最大路径和
+// 该题首先要明确计算方法，将大问题变成多个子问题进行问题分解，找到最大路径的和即为找到当前节点左子树的最大路径和和右子树的最大路径和，见fig文件下的图片
+// 若不设置全局变量，则该题可以依次求出以当前节点为根节点的最大路径和用用链表记录，最后再比较得出最大值
 
     public static void main(String[] args) {
         TreeNode treeNode = new TreeNode(1);
@@ -33,8 +34,8 @@
 
     public static  int maxPathSum(TreeNode root) {
         int res = Integer.MIN_VALUE;
-        List<Integer> list = new ArrayList<>();
-        helper(root, list);
+        List<Integer> list = new ArrayList<>();    // 建立链表记录当前节点的最大路径和
+        helper(root, list);                        // 进入递归
         for (int i = 0; i < list.size(); i++) {
             res = Math.max(res, list.get(i));
         }
@@ -43,11 +44,11 @@
 
     }
     public static int helper(TreeNode root, List<Integer> list){
-        if (root == null){
+        if (root == null){                // 设置递归出口，若当前递归至边界则返回0
             return 0;
         }
-        int maxl = helper(root.left, list);
-        int maxr = helper(root.right, list);
-        list.add(maxl + maxr + root.val);
-        return Math.max(Math.max(Math.max(root.val, 0),maxl + root.val),maxr + root.val);
+        int maxl = helper(root.left, list); // 记录左子树的最大路径和
+        int maxr = helper(root.right, list);// 记录右子树的最大路径和
+        list.add(maxl + maxr + root.val);   // 将当前节点加上左子树和右子树最大路径和即为以当前节点为根节点的最大路径和
+        return Math.max(Math.max(Math.max(root.val, 0),maxl + root.val),maxr + root.val);   // 比较并1.返回左子树＋当前节点2.右子树+当前节点3.当前节点4.0的最大值
     }

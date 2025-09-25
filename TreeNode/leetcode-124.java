@@ -36,7 +36,7 @@
         int res = Integer.MIN_VALUE;
         List<Integer> list = new ArrayList<>();    // 建立链表记录当前节点的最大路径和
         helper(root, list);                        // 进入递归
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {    // 遍历得到最大值
             res = Math.max(res, list.get(i));
         }
         System.out.println(list);

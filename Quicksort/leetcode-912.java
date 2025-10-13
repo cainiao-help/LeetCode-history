@@ -56,3 +56,50 @@
         helper(nums, left, i - 1);                          // 递归最终位置左侧
         helper(nums, i + 1, right);                         // 递归最终位置右侧
     }
+
+// 运用快慢指针进行快排，详细原理见https://www.bilibili.com/video/BV1Um421J7UC/?spm_id_from=333.337.search-card.all.click&vd_source=42d17efbc16f1feb7e31114336cbe626
+
+    public static void main(String[] args) {
+        int[] nums = {-4,0,7,4,9,-5,-1,0,-7,-1};
+        System.out.println(Arrays.toString(sortArray(nums)));
+    }
+
+    public static int[] sortArray(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);
+
+        return nums;
+    }
+
+    public static void quickSort(int[] nums, int left, int right){
+        if (left >= right){
+            return;
+        }
+
+        int p = helper(nums, left, right);
+        quickSort(nums, left, p - 1);
+        quickSort(nums, p + 1, right);
+    }
+
+    public static int helper(int[] nums, int left, int right){
+        int low = left;
+        int quick = left;
+        int target = nums[right];
+        while (quick < right){
+            if (quick < right && nums[quick] > target){
+                quick++;
+            }
+            if (quick < right && nums[quick] <= target){
+                swap(nums, low, quick);
+                quick++;
+                low++;
+            }
+        }
+        swap(nums, low, quick);
+        return low;
+    }
+
+    public static void swap(int[] nums, int left, int right){
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+    }

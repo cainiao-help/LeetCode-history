@@ -66,36 +66,35 @@
 
     public static int[] sortArray(int[] nums) {
         quickSort(nums, 0, nums.length - 1);
-
         return nums;
     }
 
     public static void quickSort(int[] nums, int left, int right){
-        if (left >= right){
+        if (left >= right){                   // 若当前左边界大于等于右边界则结束递归
             return;
         }
 
-        int p = helper(nums, left, right);
-        quickSort(nums, left, p - 1);
-        quickSort(nums, p + 1, right);
+        int p = helper(nums, left, right);    //  分区位置
+        quickSort(nums, left, p - 1);         // 左侧分区
+        quickSort(nums, p + 1, right);        // 右侧分区
     }
 
     public static int helper(int[] nums, int left, int right){
-        int low = left;
+        int low = left;                        // 设置快慢指针
         int quick = left;
-        int target = nums[right];
-        while (quick < right){
-            if (quick < right && nums[quick] > target){
+        int target = nums[right];              // 设置基准元素为右边界值，为了防止最坏情况，更可以用随机数组元素值。
+        while (quick < right){                 
+            if (quick < right && nums[quick] > target){  // 若快指针元素大于基准元素则快指针右移
                 quick++;
             }
-            if (quick < right && nums[quick] <= target){
+            if (quick < right && nums[quick] <= target){ // 若快指针元素小于等于基准元素则交换快慢指针元素，并将快慢指针同时右移
                 swap(nums, low, quick);
                 quick++;
                 low++;
             }
         }
-        swap(nums, low, quick);
-        return low;
+        swap(nums, low, quick);                // 循环结束交换快慢指针元素
+        return low;                            // 返回分区位置
     }
 
     public static void swap(int[] nums, int left, int right){
